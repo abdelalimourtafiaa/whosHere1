@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -97,6 +98,15 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(LoginActivity.this,DashboardTeacher.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null){
+            startActivity(new Intent(this,DashboardTeacher.class));
+        }
     }
 
 
